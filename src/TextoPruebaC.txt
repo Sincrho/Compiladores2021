@@ -72,6 +72,22 @@ void main(int arg){
         z = y;
         x = function(x,y,z,i) + 5;
     }
+
+    if(x!=y) int x;
+
+    if(x!=z){
+        function(x,y,z,i);
+        function(i);
+        function();
+        int x;
+        double y;
+        int z = 0;
+        double w, q, t;
+        int a = 5, b, c = 10;
+        x = 1;
+        z = y;
+        x = function(x,y,z,i) + 5;
+    }
 }
 
 void main(int arg){

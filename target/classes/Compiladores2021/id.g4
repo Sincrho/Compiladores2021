@@ -145,14 +145,14 @@ iwhile : IWHILE  PARENIZQ operacionaritlogi  PARENDER bloque;
 
 ifor : IFOR  PARENIZQ declaracion operacionaritlogi PUNTOCOMA operacionaritlogi PARENDER bloque;
 
-iif : IFOR  PARENIZQ asignacion PUNTOCOMA operacionaritlogi PUNTOCOMA operacionaritlogi PARENDER bloque
-    | IFOR  PARENIZQ asignacion PUNTOCOMA operacionaritlogi PUNTOCOMA operacionaritlogi PARENDER instruccion
+iif : IIF  PARENIZQ operacionaritlogi PARENDER bloque
+    | IIF  PARENIZQ operacionaritlogi PARENDER instruccion
     ;
 
 definicionfuncion : tipo id PARENIZQ parametros1 PARENDER LLAVEIZQ instrucciones retorno LLAVEDER
-                  | VOID id PARENIZQ parametros1 PARENDER LLAVEIZQ instrucciones LLAVEDER
+                  | VOID id PARENIZQ parametros1 PARENDER bloque
                   | tipo id PARENIZQ PARENDER LLAVEIZQ instrucciones retorno LLAVEDER
-                  | VOID id PARENIZQ PARENDER LLAVEIZQ instrucciones LLAVEDER
+                  | VOID id PARENIZQ PARENDER bloque
                   ;
 
 llamadafuncion : id PARENIZQ parametros2 PARENDER
@@ -164,8 +164,6 @@ declaracionfuncion : tipo id PARENIZQ parametros1 PARENDER PUNTOCOMA
                    | tipo id PARENIZQ PARENDER PUNTOCOMA
                    | VOID id PARENIZQ PARENDER PUNTOCOMA
                    ;
-
-
 
 retorno : IRETURN operando PUNTOCOMA
         ;
