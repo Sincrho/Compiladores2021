@@ -12,42 +12,42 @@ public class MiListener extends idBaseListener{
         public String tipoFuncionDeclarar = "";
         public boolean enAmbitoDeclaracion = false;
         public boolean enAmbitoDeclaracionFuncion = false;
-        public boolean enAmbitoFor = false;
+        //public boolean enAmbitoFor = false;
         public boolean enAmbitoAsignacion = false;
         public boolean enAmbitoOperacionAritLogi = false;
-        public boolean enAmbitoFuncion = false;
-        public boolean error = false;
+        //public boolean enAmbitoFuncion = false;
+        //public boolean error = false;
     }
     EstadoContexto estados = new EstadoContexto();
 
     @Override
     public void enterId(IdContext ctx) {
         String idToken = ctx.getStart().getText();
-        System.out.println(idToken);
-        System.out.println(TablaSimbolos.getInstance().getInfo());
- 
 
         if(estados.enAmbitoDeclaracion){
             if(TablaSimbolos.getInstance().buscarId(idToken)){
-                System.out.println("Identificador '" + idToken + " ' ya fue declarado");
+                System.out.println("[Semantico] | Linea:"+ctx.getStart().getLine()+" | Identificador '" + idToken + " ' ya fue declarado ");
             }else{
                 TablaSimbolos.getInstance().addId(idToken, estados.tipoVarDeclarar);
-                System.out.println("AGREGADADO ?" +TablaSimbolos.getInstance().buscarId(idToken));
-                TablaSimbolos.getInstance().setInfo("Esto se refleja abajo");
             }  
         }
         if(estados.enAmbitoOperacionAritLogi){
-            System.out.println(TablaSimbolos.getInstance().buscarId(idToken));
             if(TablaSimbolos.getInstance().buscarId(idToken)){
                 Identificador reference = TablaSimbolos.getInstance().obtenerIdPorToken(idToken);
                 if(reference.inicializado == false){
-                    System.out.println("Identificador '" + idToken + "' no esta inicializado");
+                    System.out.println("[Semantico] | Linea:"+ctx.getStart().getLine()+" | Identificador '" + idToken + "' no esta inicializado");
                 }
             }else{
-                System.out.println("Identificador '" + idToken + "' no esta declarado");
+                System.out.println("[Semantico] | Linea:"+ctx.getStart().getLine()+" | Identificador '" + idToken + "' no esta declarado");
+            }
+        } 
+        if(estados.enAmbitoDeclaracionFuncion){
+            if(TablaSimbolos.getInstance().buscarId(idToken)){
+                System.out.println("[Semantico] | Linea:"+ctx.getStart().getLine()+" | La funcion '" + idToken + " ' ya ha sido declarada");
+            }else{
+                TablaSimbolos.getInstance().addId(idToken, estados.tipoFuncionDeclarar);
             }
         }
-        System.out.println("-----------------");
     }
     
     @Override
@@ -67,7 +67,7 @@ public class MiListener extends idBaseListener{
             Identificador reference = TablaSimbolos.getInstance().obtenerIdPorToken(tokenAsignacion);
             reference.inicializado = true;
         }else{
-            System.out.println("Identificador " + tokenAsignacion + "no esta declarado");
+            System.out.println("[Semantico] Identificador '" + tokenAsignacion + "' no esta declarado");
         }
     }
     @Override
@@ -171,12 +171,5 @@ public class MiListener extends idBaseListener{
     public void enterIniciotexto(IniciotextoContext ctx) {
         // TODO Auto-generated method stub
         TablaSimbolos.getInstance().nuevoContexto();
-    }
-    @Override
-    public void exitIniciotexto(IniciotextoContext ctx) {
-        // TODO Auto-generated method stub
-        //TablaSimbolos.getInstance().borrarUltimoContexto();
-    }
-    
-   
+    }   
 }

@@ -7,16 +7,16 @@ public class TablaSimbolos {
   private List<HashMap<String,Identificador>> contextos = null;
   private int nroContextos;
   private int nroToken;
-  private String info = "Sanity check #1";
+  // private String info = "Sanity check #1";
 
     
-  public String getInfo() {
-    return info;
-  }
+  // public String getInfo() {
+  //   return info;
+  // }
 
-  public void setInfo(String info) {
-    this.info = info;
-  }
+  // public void setInfo(String info) {
+  //   this.info = info;
+  // }
 
   public HashMap<String, Identificador> getContexto(int i) {
     return contextos.get(i);
@@ -38,7 +38,7 @@ public class TablaSimbolos {
     for(int i = 0; i < contextos.size() ; i++ ){
       HashMap<String, Identificador> contextoTemporal = contextos.get(i);
       for(Map.Entry<String, Identificador> entry : contextoTemporal.entrySet()) {
-        if (entry.getValue().token == token){
+        if (entry.getValue().token.equals(token)){
           return true;
         }
       }    
@@ -49,7 +49,7 @@ public class TablaSimbolos {
   public boolean buscarIdLocal ( String token ) {
     HashMap<String,Identificador> contextoLocal = contextos.get(contextos.size() - 1);
     for(Map.Entry<String, Identificador> entry : contextoLocal.entrySet()) {
-      if (entry.getValue().token == token){
+      if (entry.getValue().token.equals(token)){
         return true;
       }
     }    
@@ -61,7 +61,7 @@ public class TablaSimbolos {
     for(int i = 0; i < contextos.size() ; i++ ){
       HashMap<String, Identificador> contextoTemporal = contextos.get(i);
       for(Map.Entry<String, Identificador> entry : contextoTemporal.entrySet()) {
-        if (entry.getValue().token == token){
+        if (entry.getValue().token.equals(token)){
           return temp = entry.getValue();
         }
       }    
@@ -70,7 +70,9 @@ public class TablaSimbolos {
   }
 
   public void addId (String token, String tipo) {
-    if (buscarIdLocal(token)) System.out.println("Id ya presente en este contexto");
+    if (buscarId(token)){
+      System.out.println("Id ya presente en este contexto");
+    } 
     else {
       String tokenKey = "CTX" + Integer.toString(nroContextos) + "T" + Integer.toString(nroToken);
       HashMap<String,Identificador> contextoLocal = contextos.get(contextos.size() - 1);
