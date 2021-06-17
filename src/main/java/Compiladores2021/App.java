@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         // create a CharStream that reads from file
-        CharStream input = CharStreams.fromFileName("src/TextoPruebaC.txt");
+        CharStream input = CharStreams.fromFileName("src/TextoPruebaCTP2.txt");
 
         // create a lexer that feeds off of input CharStream
         idLexer lexer = new idLexer(input);
@@ -21,15 +21,13 @@ public class App {
         idParser parser = new idParser(tokens);
                 
         // create Listener
-        // ExpRegBaseListener escucha = new Escucha();
+        MiListener listener = new MiListener();
 
         // Conecto el objeto con Listeners al parser
-        // parser.addParseListener(escucha);
+        parser.addParseListener(listener);
 
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial
-        // parser.s();
-        ParseTree tree =  parser.s();
-        System.out.println(tree);
+        parser.iniciotexto();
     }
 }

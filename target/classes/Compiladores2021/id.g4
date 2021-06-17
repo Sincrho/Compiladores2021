@@ -88,6 +88,7 @@ instruccion:declaracion
         |operacionaritlogi PUNTOCOMA
         |llamadafuncion PUNTOCOMA
         |bloque
+        |PUNTOCOMA
         ;
 
 declaracion: tipo declarado
@@ -143,7 +144,7 @@ logicos: AND
 
 iwhile : IWHILE  PARENIZQ operacionaritlogi  PARENDER bloque;
 
-ifor : IFOR  PARENIZQ declaracion operacionaritlogi PUNTOCOMA operacionaritlogi PARENDER bloque;
+ifor : IFOR  PARENIZQ asignacion operacionaritlogi PUNTOCOMA operacionaritlogi PARENDER bloque;
 
 iif : IIF  PARENIZQ operacionaritlogi PARENDER bloque
     | IIF  PARENIZQ operacionaritlogi PARENDER instruccion
@@ -191,6 +192,6 @@ operadorbinario: relacionales
                ;
 
 
-s : {System.out.println("\nEmpiezo lectura \n"); } instrucciones {System.out.println("Fin lectura \n"); }
-  |
-  ;
+iniciotexto : {System.out.println("\nEmpiezo lectura \n"); } instrucciones {System.out.println("Fin lectura \n"); }
+            |
+            ;
